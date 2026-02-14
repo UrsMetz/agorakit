@@ -229,6 +229,10 @@ class GroupCalendarEventController extends Controller
                 ->withInput();
         }
 
+        if ($request->has('max_attendees') && $request->input('max_attendees') !== '') {
+            $event->max_attendees = intval($request->input('max_attendees'), 10);
+        }
+
         if ($request->has('listed_location')) {
             foreach ($this->getListedLocations($group) as $key => $location) {
                 if ($key == $request->input('listed_location')) {
@@ -366,6 +370,10 @@ class GroupCalendarEventController extends Controller
         $event->body = $request->input('body');
 
         $event->start = Carbon::createFromFormat('Y-m-d H:i', $request->input('start_date') . ' ' . $request->input('start_time'));
+
+        if ($request->has('max_attendees') && $request->input('max_attendees') != '') {
+            $event->max_attendees = intval($request->input('max_attendees'), 10);
+        }
 
         if ($request->has('stop_date') && $request->get('stop_date') != '') {
             $event->stop = Carbon::createFromFormat('Y-m-d H:i', $request->input('stop_date') . ' ' . $request->input('stop_time'));

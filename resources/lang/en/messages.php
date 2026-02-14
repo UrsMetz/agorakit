@@ -152,6 +152,8 @@ return [
     'make_user_admin' => 'Make user admin',
     'map' => 'Map',
     'map_info' => 'If you complete your address in your user profile, you will appear here',
+    'max_attendees' => 'Maximum number of attendees',
+    'max_attendees_not_set' => 'not set',
     'max_file_size' => 'Maximum file size',
     'members' => 'Members',
     'member_since' => 'Member since',

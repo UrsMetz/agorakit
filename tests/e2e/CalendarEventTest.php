@@ -157,4 +157,48 @@ class CalendarEventTest extends BaseTest
             ])
             ->see(trans('messages.ressource_created_successfully'));
     }
+
+    public function testEventWithMaxAttendeesSet()
+    {
+        $user = $this->admin();
+        $group = $this->getTestGroup();
+
+        $this->actingAs($user)
+            ->visit('/groups/' . $group->id . '/calendarevents/create')
+            ->see('Add an event')
+            ->type('Test event with max attendees set', 'name')
+            ->type('this is a test event in the calendar', 'body')
+            ->select('My PlaceBruxelles', 'listed_location')
+            ->type('2026-02-02', 'start_date')
+            ->type('12:00', 'start_time')
+            ->type('42', 'max_attendees')
+            ->press('Create')
+            ->seeInDatabase('calendar_events', [
+                'name' => 'Test event with max attendees set',
+                'max_attendees' => 42
+            ])
+            ->see(trans('messages.ressource_created_successfully'));
+    }
+
+    public function testEventWithMaxAttendeesNotSet()
+    {
+        $user = $this->admin();
+        $group = $this->getTestGroup();
+
+        $this->actingAs($user)
+            ->visit('/groups/' . $group->id . '/calendarevents/create')
+            ->see('Add an event')
+            ->type('Test event with max attendees not set', 'name')
+            ->type('this is a test event in the calendar', 'body')
+            ->select('My PlaceBruxelles', 'listed_location')
+            ->type('2026-02-02', 'start_date')
+            ->type('12:00', 'start_time')
+            ->type('', 'max_attendees')
+            ->press('Create')
+            ->seeInDatabase('calendar_events', [
+                'name' => 'Test event with max attendees not set',
+                'max_attendees' => null
+            ])
+            ->see(trans('messages.ressource_created_successfully'));
+    }
 }

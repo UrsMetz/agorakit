@@ -72,3 +72,8 @@
         {!! Form::date('stop_date', null, ['class' => 'form-control']) !!}
     @endif
 </div>
+
+<div class="form-group">
+    {!! Form::label('max_attendees', trans('messages.max_attendees')) !!}
+    {!! Form::number('max_attendees', $event->max_attendees, ['class' => 'form-control']) !!}
+</div>

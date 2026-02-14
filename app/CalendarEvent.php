@@ -122,4 +122,9 @@ class CalendarEvent extends Model
     {
         return $this->belongsToMany(User::class)->wherePivot('status', '0');
     }
+
+    public function maxAttendeesSet(): bool
+    {
+        return !is_null($this->max_attendees);
+    }
 }

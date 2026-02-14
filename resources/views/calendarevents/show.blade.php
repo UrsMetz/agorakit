@@ -19,7 +19,7 @@
 
         @if ($event->hasCover())
             <div class="col-12 col-sm-5 col-md-4 mb-2 order-sm-2">
-                <img alt="event cover" class="rounded" src="{{ route('calendarevents.cover', [$event, 'large']) }}" />
+                <img alt="event cover" class="rounded" src="{{ route('calendarevents.cover', [$event, 'large']) }}"/>
             </div>
         @endif
 
@@ -52,7 +52,8 @@
 
             <h3>{{ trans('messages.begins') }} : {{ $event->start->isoFormat('LLLL') }}</h3>
 
-            @if ($event->stop > $event->start) <h3>{{ trans('messages.ends') }} : {{ $event->stop->isoFormat('LLLL') }}</h3>
+            @if ($event->stop > $event->start)
+                <h3>{{ trans('messages.ends') }} : {{ $event->stop->isoFormat('LLLL') }}</h3>
             @endif
 
             @if ($event->hasLocation())
@@ -63,6 +64,14 @@
             <div>
                 {!! filter($event->body) !!}
             </div>
+
+            <div>
+                <div class="mt-3">
+                    {{ trans('messages.max_attendees')  }}
+                    : {{ $event->maxAttendeesSet() ? $event->max_attendees : trans('messages.max_attendees_not_set') }}
+                </div>
+            </div>
+
             <div id="participate-{{ $event->id }}">
                 <div class="mt-3">
                     @include('participation.dropdown')
